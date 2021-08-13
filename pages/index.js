@@ -33,10 +33,10 @@ function describeArc(x, y, radius, startAngle, endAngle){
 export default function Home() {
     //console.log(describeArc(400,400,300,-72, 72));
     function generateRandomInteger(max) {
-        return Math.floor(Math.random() * max) + 1;
+        return Math.floor(Math.random() * max);
     };
 
-    var texts = [
+    const [texts, setTexts] = useState([
         ['thegame', '"The Game"'],
         ['observe', 'Observe'],
         ['orient', 'Orient'],
@@ -48,26 +48,47 @@ export default function Home() {
         ['leadership', 'Leadership'],
         ['whyofmovement', 'Why of movement'],
         ['whyofpurpose', 'Why of Purpose']
-    ];
-
-
+    ]);
     const [round, incRound] = useState(1);
     const [mistakes, setMistakes] = useState(0);
     const [currentIdIndex, setCurrentIdIndex] = useState(generateRandomInteger(texts.length));
 
     function onClick (event){
         if(event.target.id && (round <= 10)){
-            incRound(round + 1);
             if(event.target.id === texts[currentIdIndex][0]){
                 texts.splice(currentIdIndex,1);
+                setTexts(texts);
                 setCurrentIdIndex(generateRandomInteger(texts.length));
             } else {
                 setCurrentIdIndex(generateRandomInteger(texts.length));
                 setMistakes(mistakes  + 1);
             }
+            incRound(round + 1);
         }
     };
+    function returnDescription(){
+        if(round <= 10){
+            return <h1 className="description"> Where is "<span style={{backgroundColor:"yellow"}}>{currentTextSearch}</span>" ?</h1>;
+        } else {
+            let percentage = (10 - mistakes) * 10;
+            let resultColor = {
+                color: 'green'
+            }
+            if(percentage < 71){
+                resultColor.color = 'orange';
+            }
+            if(percentage < 51){
+                resultColor.color = 'red';
+            }
 
+            return <h1 className="description"> Your result: <b><span style={resultColor}>{percentage}</span>%</b>.</h1>;
+        }
+    }
+  let currentTextSearch = '...';
+  if(texts && texts[currentIdIndex]){
+      currentTextSearch = texts[currentIdIndex][1];
+  }
+  let description = returnDescription();
   return (
     <div className="container">
       <Head>
@@ -79,7 +100,7 @@ export default function Home() {
           How well do you know the strategy cycle?
         </h1>
 
-          <h1 className="description"> Where is "<span style={{backgroundColor:"yellow"}}>{texts[currentIdIndex][1]}</span>" ?</h1>
+          {description}
 
 
 
@@ -204,7 +225,7 @@ export default function Home() {
       </main>
 
       <footer>
-        Round: {round} out of 10, Mistakes: {mistakes}
+        Round: {round <= 10 ? round : 10} out of 10, Mistakes: {mistakes}
       </footer>
 
       <style jsx>{`
