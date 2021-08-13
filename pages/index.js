@@ -1,62 +1,210 @@
 import Head from 'next/head'
+import {useState} from "react";
+
+function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+    var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+
+    return {
+        x: centerX + (radius * Math.cos(angleInRadians)),
+        y: centerY + (radius * Math.sin(angleInRadians))
+    };
+}
+
+function describeArc(x, y, radius, startAngle, endAngle){
+
+    var start = polarToCartesian(x, y, radius, endAngle);
+    var end = polarToCartesian(x, y, radius, startAngle);
+
+    var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+    var d = [
+        "M", start.x, start.y,
+        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+    ].join(" ");
+
+    return d;
+}
+
+
+
+
+
 
 export default function Home() {
+    //console.log(describeArc(400,400,300,-72, 72));
+    function generateRandomInteger(max) {
+        return Math.floor(Math.random() * max) + 1;
+    };
+
+    var texts = [
+        ['thegame', '"The Game"'],
+        ['observe', 'Observe'],
+        ['orient', 'Orient'],
+        ['decide', 'Decide'],
+        ['act', 'Act'],
+        ['landscape', 'Landscape'],
+        ['climate', 'Climate'],
+        ['doctrine', 'Doctrine'],
+        ['leadership', 'Leadership'],
+        ['whyofmovement', 'Why of movement'],
+        ['whyofpurpose', 'Why of Purpose']
+    ];
+
+
+    const [round, incRound] = useState(1);
+    const [mistakes, setMistakes] = useState(0);
+    const [currentIdIndex, setCurrentIdIndex] = useState(generateRandomInteger(texts.length));
+
+    function onClick (event){
+        if(event.target.id && (round <= 10)){
+            incRound(round + 1);
+            if(event.target.id === texts[currentIdIndex][0]){
+                texts.splice(currentIdIndex,1);
+                setCurrentIdIndex(generateRandomInteger(texts.length));
+            } else {
+                setCurrentIdIndex(generateRandomInteger(texts.length));
+                setMistakes(mistakes  + 1);
+            }
+        }
+    };
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Strategy Cycle Tester</title>
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          How well do you know the strategy cycle?
         </h1>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+          <h1 className="description"> Where is "<span style={{backgroundColor:"yellow"}}>{texts[currentIdIndex][1]}</span>" ?</h1>
+
+
 
         <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800px" height="800px">
+                <defs>
+                    <g id="why-short-arrow" style={{strokeWidth: 1, stroke: "black" }}>
+                        <path  d="M 457.0633909777092 381.45898033750314 A 60 60 0 0 0 400 340" style={{fill:'transparent', strokeDasharray:"3,1"}}/>
+                            <g transform="translate(56.8,-19)">
+                                <line x1="400" y1="400" x2="390" y2="400" transform="rotate(87,400,400)"/> // 15 + 72
+                                <line x1="400" y1="400" x2="390" y2="400" transform="rotate(57,400,400)"/> //-15 + 72
+                            </g>
+                    </g>
+                    <g id="why-long-arrow" style={{strokeWidth: 1, stroke: "black"}}>
+                        <path  d="M 457.0633909777092 381.45898033750314 A 60 60 0 1 0 435.2671151375484 448.54101966249686" style={{fill:'transparent', strokeDasharray:"3,1"}}/>
+                        <g transform="translate(56.8,-19)">
+                            <line x1="400" y1="400" x2="390" y2="400" style={{strokeWidth: 1, stroke: "black" }} transform="rotate(87,400,400)"/> // 15 + 72
+                            <line x1="400" y1="400" x2="390" y2="400" style={{strokeWidth: 1, stroke: "black" }} transform="rotate(57,400,400)"/> //-15 + 72
+                        </g>
+                    </g>
+                    <g id="long-cycle-arrow" style={{strokeWidth: 2, stroke: "black" }}>
+                        <path  d="M 685.316954888546 307.2949016875158 A 300 300 0 0 0 114.68304511145396 307.29490168751573" style={{fill:'transparent', strokeDasharray:"5,5"}}/>
+                        <g transform="translate(285.5,-92)">
+                            <line x1="400" y1="400" x2="390" y2="400" transform="rotate(87,400,400)"/> // 15 + 72
+                            <line x1="400" y1="400" x2="390" y2="400" transform="rotate(57,400,400)"/> //-15 + 72
+                        </g>
+                    </g>
+                    <g id="short-cycle-arrow" style={{strokeWidth: 1.5, stroke: "black" }}>
+                        <g transform="translate(285.5,-92)">
+                            <line x1="400" y1="400" x2="390" y2="400"  transform="rotate(87,400,400)"/> // 15 + 72
+                            <line x1="400" y1="400" x2="390" y2="400"  transform="rotate(57,400,400)"/> //-15 + 72
+                        </g>
+                        <path  d="M 685.316954888546 307.2949016875158 A 300 300 0 0 0 400 100" style={{fill:'transparent', strokeDasharray:"5,5"}}/>
+                    </g>
+                    <g id="line-template">
+                        <line x1="400" y1="350" x2="400" y2="80" style={{strokeWidth: 1, stroke: "black"}}/>
+                    </g>
+                    <g id="OODA-block" style={{strokeWidth: 1, stroke: "black"}}>
+                        <path d="M 514.1267819554184 362.9179606750063 A 120 120 0 0 0 400 280 L 400 240 A 160 160 0 0 1 552.1690426072246 350.55728090000844 z"/>
+                    </g>
+                </defs>
+              <g>
+                  <use xlinkHref="#why-short-arrow" transform="rotate(15,400,400)"/>
+                  <use xlinkHref="#why-long-arrow" transform="rotate(303,400,400)"/>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+                  <use xlinkHref="#line-template" transform="rotate(15,400,400)"/>
+                  <use xlinkHref="#line-template" transform="rotate(87,400,400)"/>
+                  <use xlinkHref="#line-template" transform="rotate(231,400,400)"/>
+                  <use xlinkHref="#line-template" transform="rotate(303,400,400)"/>
+                  <use xlinkHref="#long-cycle-arrow" transform="rotate(159,400,400)"/>
+                  <use xlinkHref="#short-cycle-arrow" transform="rotate(15,400,400)"/>
+                  <use xlinkHref="#short-cycle-arrow" transform="rotate(231,400,400)"/>
+                  <use xlinkHref="#short-cycle-arrow" transform="rotate(303,400,400)"/>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+                  <use xlinkHref="#OODA-block" transform="rotate(15,400,400)" style={{fill:'#EEEEEE' }}/>
+                  <use xlinkHref="#OODA-block" transform="rotate(87,400,400)" style={{fill:'#BBBBBB' }}/>
+                  <use xlinkHref="#OODA-block" transform="rotate(159,400,400)" style={{fill:'#AAAAAA' }}/>
+                  <use xlinkHref="#OODA-block" transform="rotate(231,400,400)" style={{fill:'#666666' }}/>
+                  <use xlinkHref="#OODA-block" transform="rotate(303,400,400)" style={{fill:'#000000' }}/>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+                  <text id="whyofpurpose" x="380" y="360"  fontSize="12px" onClick={onClick}>
+                      <tspan dy="1em" dx="2em">Why of</tspan>
+                      <tspan dy="1em" dx="-3em">purpose</tspan>
+                  </text>
+                  <text id="whyofmovement" x="330" y="400" fontSize="12px">
+                      <tspan dy="1em" dx="2em">Why of</tspan>
+                      <tspan dy="1em" dx="-3em">movement</tspan>
+                  </text>
+                  <text id="thegame" x="620" y="190" fontSize="30px">
+                      "The Game"
+                  </text>
+                  <text  id="observe" x="450" y="730" fontSize="30px">
+                      Observe
+                  </text>
+                  <text id="orient" x="0" y="410" fontSize="30px">
+                      Orient
+                  </text>
+                  <text id="decide" x="220" y="100" fontSize="30px">
+                      Decide
+                  </text>
+                  <text id="act" x="470" y="70" fontSize="30px">
+                      Act
+                  </text>
+
+
+
+                  <text id="purpose" x="530" y="280" fontSize="30px">
+                      Purpose
+                  </text>
+                  <text id="landscape" x="530" y="530" fontSize="30px">
+                      Landscape
+                  </text>
+                  <text id="climate" x="300" y="620" fontSize="30px">
+                      Climate
+                  </text>
+                  <text id="doctrine" x="120" y="410" fontSize="30px">
+                      Doctrine
+                  </text>
+                  <text id="leadership" x="250" y="210" fontSize="30px">
+                      Leadership
+                  </text>
+
+
+                  <rect id="purpose" x="530" y="250" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="landscape" x="530" y="500" width="140" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="climate" x="300" y="590" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="doctrine" x="120" y="380" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="leadership" x="250" y="180" width="150" height="40" style={{fill:"gray"}} onClick={onClick}/>
+
+
+                  <rect id="whyofpurpose" x="380" y="360"  width="90" height="35" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="whyofmovement" x="330" y="400" width="90" height="35" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="thegame" x="620" y="160" width="160" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="observe" x="440" y="700" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="orient" x="0" y="380" width="110" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="decide" x="220" y="60" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="act" x="440" y="30" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+              </g>
+
+            </svg>
         </div>
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
+        Round: {round} out of 10, Mistakes: {mistakes}
       </footer>
 
       <style jsx>{`
@@ -87,36 +235,18 @@ export default function Home() {
           align-items: center;
         }
 
-        footer img {
-          margin-left: 0.5rem;
-        }
 
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
 
         .title a {
           color: #0070f3;
           text-decoration: none;
         }
 
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
 
         .title {
           margin: 0;
           line-height: 1.15;
-          font-size: 4rem;
+          fontSize: 4rem;
         }
 
         .title,
@@ -126,14 +256,14 @@ export default function Home() {
 
         .description {
           line-height: 1.5;
-          font-size: 1.5rem;
+          fontSize: 1.5rem;
         }
 
         code {
           background: #fafafa;
           border-radius: 5px;
           padding: 0.75rem;
-          font-size: 1.1rem;
+          fontSize: 1.1rem;
           font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
             DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
         }
@@ -146,36 +276,6 @@ export default function Home() {
 
           max-width: 800px;
           margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
         }
 
         .logo {
