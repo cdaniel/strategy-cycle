@@ -105,7 +105,7 @@ export default function Home() {
 
 
         <div className="grid">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800px" height="800px">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="300px" height="300px">
                 <defs>
                     <g id="why-short-arrow" style={{strokeWidth: 1, stroke: "black" }}>
                         <path  d="M 457.0633909777092 381.45898033750314 A 60 60 0 0 0 400 340" style={{fill:'transparent', strokeDasharray:"3,1"}}/>
