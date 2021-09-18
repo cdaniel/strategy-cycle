@@ -30,8 +30,7 @@ function describeArc(x, y, radius, startAngle, endAngle){
 
 
 
-export default function Home() {
-    //console.log(describeArc(400,400,300,-72, 72));
+export default function StrategyCycleTester() {
     function generateRandomInteger(max) {
         return Math.floor(Math.random() * max);
     };
@@ -105,7 +104,14 @@ export default function Home() {
 
 
         <div className="grid">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="300px" height="300px">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" style={
+                {
+                    minWidth: "300px",
+                    minHeight: "300px",
+                    width: "100%",
+                    height: "100%"
+                }
+            }>
                 <defs>
                     <g id="why-short-arrow" style={{strokeWidth: 1, stroke: "black" }}>
                         <path  d="M 457.0633909777092 381.45898033750314 A 60 60 0 0 0 400 340" style={{fill:'transparent', strokeDasharray:"3,1"}}/>
@@ -216,8 +222,8 @@ export default function Home() {
                   <rect id="thegame" x="620" y="160" width="160" height="40" style={{fill:"gray"}} onClick={onClick}/>
                   <rect id="observe" x="440" y="700" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
                   <rect id="orient" x="0" y="380" width="110" height="40" style={{fill:"gray"}} onClick={onClick}/>
-                  <rect id="decide" x="220" y="60" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
-                  <rect id="act" x="440" y="30" width="130" height="40" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="decide" x="220" y="60" width="130" height="45" style={{fill:"gray"}} onClick={onClick}/>
+                  <rect id="act" x="440" y="30" width="130" height="45" style={{fill:"gray"}} onClick={onClick}/>
               </g>
 
             </svg>
@@ -239,7 +245,7 @@ export default function Home() {
         }
 
         main {
-          padding: 5rem 0;
+          //padding: 5rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -279,24 +285,19 @@ export default function Home() {
           line-height: 1.5;
           fontSize: 1.5rem;
         }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          fontSize: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
+        
 
         .grid {
           display: flex;
           align-items: center;
           justify-content: center;
           flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
+          flex: 1 1 100% ;
+          max-width: 60vw;
+          max-height: 60vh;
+          min-height: 300px;
+          height: 60vh;
+          aspect-ratio: 1/1;
         }
 
         .logo {
