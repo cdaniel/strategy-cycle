@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import {useState} from "react";
+import Link from 'next/link'
+
 
 function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -34,8 +36,7 @@ export default function StrategyCycleTester() {
     function generateRandomInteger(max) {
         return Math.floor(Math.random() * max);
     };
-
-    const [texts, setTexts] = useState([
+    const initialState = [
         ['thegame', '"The Game"'],
         ['observe', 'Observe'],
         ['orient', 'Orient'],
@@ -47,7 +48,9 @@ export default function StrategyCycleTester() {
         ['leadership', 'Leadership'],
         ['whyofmovement', 'Why of movement'],
         ['whyofpurpose', 'Why of Purpose']
-    ]);
+    ];
+
+    const [texts, setTexts] = useState(initialState);
     const [round, incRound] = useState(1);
     const [mistakes, setMistakes] = useState(0);
     const [currentIdIndex, setCurrentIdIndex] = useState(generateRandomInteger(texts.length));
@@ -65,6 +68,12 @@ export default function StrategyCycleTester() {
             incRound(round + 1);
         }
     };
+    function reset(event){
+        setTexts(initialState);
+        incRound(1);
+        setMistakes(0);
+        setCurrentIdIndex(generateRandomInteger(texts.length));
+    }
     function returnDescription(){
         if(round <= 10){
             return <h1 className="description"> Where is "<span style={{backgroundColor:"yellow"}}>{currentTextSearch}</span>" ?</h1>;
@@ -80,7 +89,13 @@ export default function StrategyCycleTester() {
                 resultColor.color = 'red';
             }
 
-            return <h1 className="description"> Your result: <b><span style={resultColor}>{percentage}</span>%</b>.</h1>;
+            return <h1 className="description"> Your result: <b><span style={resultColor}>{percentage}</span>%</b>. &nbsp;
+                <a style={{
+                color: "blue",
+                textDecoration: "underline",
+                cursor: "pointer"
+                }} onClick={reset}>
+                    Try again!</a></h1>;
         }
     }
   let currentTextSearch = '...';
