@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import {useState} from "react";
-import Link from 'next/link'
-
 
 
 
@@ -160,9 +158,6 @@ export default function StageNameTester() {
 
           {quizz}
 
-        <div className="grid">
-
-        </div>
       </main>
 
       <footer>
