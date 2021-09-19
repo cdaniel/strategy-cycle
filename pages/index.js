@@ -16,7 +16,7 @@ export default function Home() {
           <h1 className="title">
               <ul>
                   <li><Link href="/strategycycle">Strategy Cycle</Link></li>
-                  <li><Link href="/componentstostages">Stage Names for Various Component Types</Link></li>
+                  <li><Link href="/componentstostages">Evolution Stage Names</Link></li>
               </ul>
           </h1>
       </main>
