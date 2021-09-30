@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import {useState} from "react";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 
 
@@ -89,33 +92,33 @@ export default function StageNameTester() {
 
         const availableAnswers = [...unanswered];
         availableAnswers.splice(currentIdIndex, 1);
-        let linkStyle = {
-            color: "blue",
-            textDecoration: "underline",
-            cursor: "pointer"
-        };
+
         let questionAnswers = [];
         let index = generateRandomInteger(availableAnswers.length);
         let answer = availableAnswers.splice(index, 1)[0];
-        questionAnswers.push(<li key='a31221'><a style={linkStyle} onClick={onClickWrong}>{answer.stageName}</a></li>);
+        questionAnswers.push(<Button  variant="outline-dark" size="lg" onClick={onClickWrong}>{answer.stageName}</Button>);
         index = generateRandomInteger(availableAnswers.length);
         answer = availableAnswers.splice(index, 1)[0];
-        questionAnswers.push(<li key='b12412'><a  style={linkStyle} onClick={onClickWrong}>{answer.stageName}</a></li>);
+        questionAnswers.push(<Button variant="outline-dark" size="lg" onClick={onClickWrong}>{answer.stageName}</Button>);
         index = generateRandomInteger(availableAnswers.length);
         answer = availableAnswers.splice(index, 1)[0];
-        questionAnswers.push(<li key='c123'><a  style={linkStyle} onClick={onClickWrong}>{answer.stageName}</a></li>);
-        questionAnswers.push(<li key='d243'><a  style={linkStyle} onClick={onClickRight}>{rightAnswer.stageName}</a></li>);
+        questionAnswers.push(<Button variant="outline-dark" size="lg" onClick={onClickWrong}>{answer.stageName}</Button>);
+        questionAnswers.push(<Button  variant="outline-dark" size="lg" onClick={onClickRight}>{rightAnswer.stageName}</Button>);
 
 
 
         let randomizedAnswers = questionAnswers.map((value) => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
-        return <h1 className="description">
-            <ul>What is the  <span style={{backgroundColor:"yellow"}}>{counters[rightAnswer.stageNumber]}</span>  stage of Evolution for component type  <span style={{backgroundColor:"yellow"}}>{rightAnswer.componentType}</span> ?
+        return <div><h1 className="description">
+            What is the  <span style={{backgroundColor:"yellow"}}>{counters[rightAnswer.stageNumber]}</span>  stage of Evolution for component type  <span style={{backgroundColor:"yellow"}}>{rightAnswer.componentType}</span> ?</h1>
+
+                <div className="d-grid gap-2">
+
                 {randomizedAnswers}
-            </ul>
-        </h1>;
+                </div>
+
+        </div>;
     }
 
     function returnDescription(){
@@ -155,6 +158,8 @@ export default function StageNameTester() {
         <h1 className="title">
           How well do you know the names of Evolution stages?
         </h1>
+          <br/>
+          <br/>
 
           {quizz}
 
