@@ -39,12 +39,36 @@ export default function Home() {
                     <Card style={{width: '18rem'}}>
                         <Card.Img variant="top" src="/cheatsheet.jpg"/>
                         <Card.Body>
-                            <Card.Title>Component Stage Names</Card.Title>
+                            <Card.Title>Evolution Stage Names</Card.Title>
                             <Card.Text>
                                 Do you know what is Stage VI of component type 'Capability'? Do you know all the names?
                             </Card.Text>
                             <Card.Footer>
                                 <Button variant="primary" href="/componentstostages">Start</Button>
+                            </Card.Footer>
+                        </Card.Body>
+                    </Card>
+                    <Card style={{width: '18rem'}}>
+                        <Card.Img variant="top" src="/characteristics.png"/>
+                        <Card.Body>
+                            <Card.Title>Evolution Stage Characteristics</Card.Title>
+                            <Card.Text>
+                                Can you recognise the characteristics of components in various categories?
+                            </Card.Text>
+                            <Card.Footer>
+                                <Button variant="primary" href="/characteristics">Start</Button>
+                            </Card.Footer>
+                        </Card.Body>
+                    </Card>
+                    <Card style={{width: '18rem'}}>
+                        <Card.Img variant="top" src="/generalproperties.png"/>
+                        <Card.Body>
+                            <Card.Title>Evolution Stage General Properties</Card.Title>
+                            <Card.Text>
+                                Can you name general properties of components in various categories?
+                            </Card.Text>
+                            <Card.Footer>
+                                <Button variant="primary" href="/generalproperties">Start</Button>
                             </Card.Footer>
                         </Card.Body>
                     </Card>

@@ -289,6 +289,7 @@ export default function StrategyCycleTester() {
           margin: 0;
           line-height: 1.15;
           fontSize: 4rem;
+          color: silver;
         }
 
         .title,

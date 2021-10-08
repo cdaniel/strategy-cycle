@@ -15,18 +15,83 @@ export default function StageNameTester() {
     function generateRandomInteger(max) {
         return Math.floor(Math.random() * max);
     };
-    const activities = ['Activity',
-        'Data',
-        'Practice',
-        'Knowledge'
+    const activities = ['Ubiquity',
+        'Certainty',
+        'Publication Type'
     ];
 
-    const activityStageNames = ['Genesis','Custom', 'Product (+Rental)', 'Commodity (+utility)'];
-    const dataStageNames = ['Unmodelled', 'Divergent', 'Convergent', 'Modelled'];
-    const practiceStageNames = ['Novel', 'Emerging', 'Good', 'Best'];
-    const knowledgeStageNames = ['Concept', 'Hypothesis', 'Theory', 'Universally Accepted'];
+    const ubiquityStageNames = ['Rare','Slowly increasing', 'Rapidly increasing', 'Widespread in the applicable market / ecosystem'];
+    const certaintyStageNames = ['Poorly understood / exploring the unknown', 'Rapid increase in learning / discovery becomes refining', 'Rapid increases in use / increasing fit for purpose', 'Commonly understood (in terms of use)'];
+    const publicationTypeStageNames = ['Describe the wonder of the thing / the discovery of some marvel / a new land / an unknown frontier',
+                                        'Focused on build / construct / awareness and learning / many models of explanation / no accepted forms / a wild west',
+                                        'Maintenance / operations / installation / comparison between competing forms / feature analysis eg. merits of one model over another',
+                                        'Focused on use / increasingly an accepted, almost invisible component'];
+    const marketStageNames = ['Undefined market',
+                              'Forming market / an array of competing forms and different models of understanding',
+                            'Growing market / consolidation to a few competing but more accepted forms',
+                            'Mature market / stabilised to an accepted form'];
 
-    const allStageNames = activityStageNames.concat(dataStageNames).concat(practiceStageNames).concat(knowledgeStageNames);
+    const knowledgeManagementStageNames = ['Uncertain',
+        'Learning on use / focused on testing prediction',
+        'Learning on operation / using prediction / verification',
+        'Known / accepted'];
+
+    const marketEcosystemPerceptionStageNames = ['Chaotic (non linear) / Domain of the "crazy"',
+        'Domain of "experts"',
+        'Increasing expectation of use / Domain of "professionals"',
+        'Ordered (appearance of being linear)/ trivial / formula to be applied'];
+
+
+    const userPerceptionStageNames = ['Different / confusing / exciting / surprising / dangerous',
+        'Leading edge / emerging / uncertainty over results',
+        'Increasingly common / disappointed if not used or available / feeling left behind',
+        'Standard / expected / feeling of shock if not used'];
+
+
+    const perceptionInIndustryStageNames = ['Future source of competitive advantage / unpredictable / unknown',
+        'Seen as competitive advantage / a differential / looking for ROI and case examples',
+        'Advantage through implementation / features / this model is better than that',
+        'Cost of doing business / accepted /specific defined models'];
+
+
+    const focusOnValueStageNames = ['High Future value but immediate investment',
+        'Seeking ways to profit and a ROI / seeking confirmation of value',
+        'High profitability per unit / a valuable model / a feeling of understanding / focus on exploitation',
+        'High volume / reducing margin / important but invisible / an essential component of something more complex'];
+
+
+    const understandingStageNames = ['Poorly understood / unpredictable',
+        'Increasing understanding / development of measures',
+        'Increasing education / constant refinement of needs / measures',
+        'Believed to be well defined / stable / measurable'];
+
+    const comparisonStageNames = ['Constantly changing / a differential / unstable',
+        'Learning from others / testing the water / some evidential support',
+        'Competing models / feautre difference / evidential support',
+        'Essential / any advantage is operational / accepted norm'];
+
+    const failureStageNames = ['High / tolerated / assumed to be wrong',
+        'Moderate / unsurprising if wrong but disappointed',
+        'Not tolerated / focus on constant improvement / assumed to be in the right direction / resistance to changing the model',
+        'Surprised by failure / focus on operational efficiency'];
+
+    const marketActionStageNames = ['Gambling / driven by gut',
+        "Exploring a \"found\" value ",
+        'Market analysis / listening to customers',
+        'Metric driven / build what is'];
+
+    const efficiencyStageNames = ['Reducing the cost of change (experimentation)',
+        'Reducing cost of waste (Learning)',
+        'Reducing cost of waste (Learning),',
+        'Reducing cost of deviation (Volume)'];
+
+    const decisionDriversStageNames = ['Heritage / culture',
+        'Analysis & synthesis',
+        'Analysis & synthesis',
+        'Previous experience'];
+
+
+    const allStageNames = ubiquityStageNames.concat(certaintyStageNames).concat(publicationTypeStageNames);
 
     const initialDataStructure = [];
     for (let i = 0; i < allStageNames.length; i++){
@@ -111,7 +176,7 @@ export default function StageNameTester() {
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
         return <div><h1 className="description">
-            What is the  <span style={{backgroundColor:"yellow"}}>{counters[rightAnswer.stageNumber]}</span>  stage of Evolution for component type  <span style={{backgroundColor:"yellow"}}>{rightAnswer.componentType}</span> ?</h1>
+            What is the value of the characteristics <span style={{backgroundColor:"yellow"}}>{rightAnswer.componentType}</span> for the <span style={{backgroundColor:"yellow"}}>{counters[rightAnswer.stageNumber]}</span>  stage of Evolution?</h1>
 
                 <div className="d-grid gap-2">
 
@@ -156,7 +221,7 @@ export default function StageNameTester() {
 
       <main>
         <h1 className="title">
-          How well do you know the names of Evolution stages?
+          How well do you know the Evolution characteristics?
         </h1>
           <br/>
           <br/>
