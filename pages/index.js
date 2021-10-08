@@ -76,7 +76,7 @@ export default function Home() {
             </main>
 
             <footer>
-                More things will come one day!
+                More things will come one day! Follow&nbsp;<a href="https://twitter.com/wardleymaps">@wardleymaps on twitter</a>.
             </footer>
 
             <style jsx>{`
